@@ -178,7 +178,7 @@ const getAllProperties = function (options, limit = 10) {
  * @param {{}} property An object containing all of the property details.
  * @return {Promise<{}>} A promise to the property.
  */
-const addProperty = (property) => {
+const addProperty = function (property) {
   const {
     owner_id,
     title,
@@ -186,15 +186,14 @@ const addProperty = (property) => {
     thumbnail_photo_url,
     cover_photo_url,
     cost_per_night,
-    parking_spaces,
-    number_of_bathrooms,
-    number_of_bedrooms,
-    country,
     street,
     city,
     province,
     post_code,
-    active
+    country,
+    parking_spaces,
+    number_of_bathrooms,
+    number_of_bedrooms
   } = property;
 
   const queryString = `
@@ -205,39 +204,38 @@ const addProperty = (property) => {
       thumbnail_photo_url,
       cover_photo_url,
       cost_per_night,
-      parking_spaces,
-      number_of_bathrooms,
-      number_of_bedrooms,
-      country,
       street,
       city,
       province,
       post_code,
-      active
-    )
-    VALUES (
-      $1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15
+      country,
+      parking_spaces,
+      number_of_bathrooms,
+      number_of_bedrooms
+    ) VALUES (
+      $1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14
     )
     RETURNING *;
   `;
 
-  return pool.query(queryString, [
+  const queryParams = [
     owner_id,
     title,
     description,
     thumbnail_photo_url,
     cover_photo_url,
-    cost_per_night,
-    parking_spaces,
-    number_of_bathrooms,
-    number_of_bedrooms,
-    country,
+    cost_per_night * 100, // Convert to cents
     street,
     city,
     province,
     post_code,
-    active
-  ])
+    country,
+    parking_spaces,
+    number_of_bathrooms,
+    number_of_bedrooms
+  ];
+
+  return pool.query(queryString, queryParams)
     .then(res => res.rows[0])
     .catch(err => {
       console.error('query error', err.stack);
