@@ -11,7 +11,7 @@ Dependencies:
 - Nodemon
 - pg
 
-![Screen shot of the create reservation page](lightbnb/LightBnB_WebApp/LightBnB-CreateReservation.png)
+![Screen shot of the create reservation page](LightBnB_WebApp/LightBnB-CreateReservation.png)
 
 ## Project Structure
 
