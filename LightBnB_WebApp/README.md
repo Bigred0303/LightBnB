@@ -1,5 +1,18 @@
 # LightBnB
 
+A simple multi-page Airbnb clone that uses a server-side Javascript to display the information from queries to web pages via SQL queries - By Grant Brown
+
+
+Dependencies:
+
+- Bcrypt
+- Cookie-sessions
+- Express
+- Nodemon
+- pg
+
+![Screen shot of the create reservation page](lightbnb/LightBnB_WebApp/LightBnB-CreateReservation.png)
+
 ## Project Structure
 
 ```
